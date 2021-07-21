@@ -1,8 +1,9 @@
 # helmChart-Job-Example
 
+## [single cronjob 실행 방법] 
 1. kubectl 로 테스트 
     ```shell
-    $ cd helm-cronjob-example
+    $ cd helm-cronjob-example/single-cronjob
     $ kubectl create -f templates/cronjob.yaml
     ```
     - cronjob 작업 상태 확인
@@ -20,7 +21,7 @@
 
 2. helm chart 로 설치
     ```shell
-   $ cd helm-cronjob-example
+   $ cd helm-cronjob-example/single-cronjob
 
     # helm install 명령어
     $ helm install [helm name] [heml-chart folder]
@@ -69,6 +70,10 @@ NAME                            SCHEDULE      SUSPEND   ACTIVE   LAST SCHEDULE  
 cronjob.batch/hello-world-job   */1 * * * *   False     0        24s             38s
 
 ```
+
+[comment]: <> (## [multi cronjob 실행 방법])
+
+[comment]: <> (작업중...)
 
 
 
