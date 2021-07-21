@@ -4,6 +4,8 @@ metadata:
   name: {{ .Values.name }}-job
 spec:
   schedule: {{ .Values.schedule }}
+  concurrencyPolicy: {{ .Values.concurrencyPolicy }}
+  failedJobsHistoryLimit: {{ .Values.failedJobsHistoryLimit }}
   successfulJobsHistoryLimit: 0
   jobTemplate:
     spec:
@@ -17,9 +19,9 @@ spec:
           containers:
             - name: {{ .Chart.Name }}
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-              imagePullPolicy: Always
+              imagePullPolicy: {{ .Values.imagePullPolicy }}
               {{- with .Values.env }}
               env:
                 {{- toYaml . | nindent 12 }}
               {{- end }}
-          restartPolicy: OnFailure
+          restartPolicy: {{ .Values.restartPolicy }}
