@@ -1,0 +1,25 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ .Values.name }}-job
+spec:
+  schedule: {{ .Values.schedule }}
+  successfulJobsHistoryLimit: 0
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: {{ .Values.name }}-pod
+          labels:
+            app: {{ .Values.name }}
+
+        spec:
+          containers:
+            - name: {{ .Chart.Name }}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              imagePullPolicy: Always
+              {{- with .Values.env }}
+              env:
+                {{- toYaml . | nindent 12 }}
+              {{- end }}
+          restartPolicy: OnFailure
