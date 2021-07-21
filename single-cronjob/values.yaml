@@ -1,5 +1,5 @@
 name: hello-world
-schedule: '"*/1 * * * *"'
+schedule: "*/1 * * * *"
 image:
   repository: hello-world
   tag: latest

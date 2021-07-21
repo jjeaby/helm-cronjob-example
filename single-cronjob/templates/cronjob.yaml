@@ -3,10 +3,10 @@ kind: CronJob
 metadata:
   name: {{ .Values.name }}-job
 spec:
-  schedule: {{ .Values.schedule }}
+  schedule: {{ .Values.schedule | quote }}
   concurrencyPolicy: {{ .Values.concurrencyPolicy }}
   failedJobsHistoryLimit: {{ .Values.failedJobsHistoryLimit }}
-  successfulJobsHistoryLimit: 0
+  successfulJobsHistoryLimit: {{ .Values.successfulJobsHistoryLimit }}
   jobTemplate:
     spec:
       template:
@@ -19,7 +19,7 @@ spec:
           containers:
             - name: {{ .Chart.Name }}
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-              imagePullPolicy: {{ .Values.imagePullPolicy }}
+              imagePullPolicy: {{ .Values.image.imagePullPolicy }}
               {{- with .Values.env }}
               env:
                 {{- toYaml . | nindent 12 }}

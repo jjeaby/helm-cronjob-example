@@ -1,0 +1,32 @@
+{{- $chart_name := .Chart.Name }}
+{{- $chart_version := .Chart.Version | replace "+" "_" }}
+
+{{- range $job := .Values.jobs }}
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ $job.name }}-job
+spec:
+  schedule: {{ $job.schedule | quote }}
+  concurrencyPolicy: {{ $job.concurrencyPolicy }}
+  failedJobsHistoryLimit: {{ $job.failedJobsHistoryLimit }}
+  successfulJobsHistoryLimit: {{ $job.successfulJobsHistoryLimit }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: {{ $job.name }}-pod
+          labels:
+            app: {{ $job.name }}
+
+        spec:
+          containers:
+            - name: {{ .Chart.Name }}
+              image: "{{ $job.image.repository }}:{{ $job.image.tag }}"
+              imagePullPolicy: {{ $job.image.imagePullPolicy }}
+              {{- with $job.env }}
+              env:
+                {{- toYaml . | nindent 12 }}
+              {{- end }}
+          restartPolicy: {{ $job.restartPolicy }}
