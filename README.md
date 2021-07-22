@@ -21,7 +21,7 @@
 
 2. helm chart 로 설치
     ```shell
-   $ cd helm-cronjob-example/single-cronjob
+    $ cd helm-cronjob-example/single-cronjob
 
     # helm install 명령어
     $ helm install [helm name] [heml-chart folder]
@@ -98,12 +98,12 @@
 2. helm chart 로 설치
     ```shell
    $ cd helm-cronjob-example/multi-cronjob
-
-    # helm install 명령어
-    $ helm install [helm name] [heml-chart folder]
-
-    # 여기서는 아래와같이 실행하면 된다.
-    $ helm install helm-cronjob[helm name] .[heml-chart folder]
+   
+   # helm install 명령어
+   $ helm install [helm name] [heml-chart folder]
+   
+   # 여기서는 아래와같이 실행하면 된다.
+   $ helm install helm-cronjob[helm name] .[heml-chart folder]
 
     ```
    - helm 작업 상태 확인
